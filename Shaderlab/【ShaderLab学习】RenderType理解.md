@@ -3,7 +3,7 @@
 
 在Unity Shader中会经常在SubShader中使用Tags，其中就会涉及RenderType。
 
-``` C {class=line-numbers}
+``` GLSL {class=line-numbers}
 SubShader{
     Tags{ "RenderType" = "Opaque" }
     ...
@@ -37,7 +37,7 @@ Unity可以运行时替换符合特定RenderType的Shader。主要通过Camera.R
 
 #### Camera.RenderWithShader
 
-``` C
+``` GLSL
 public void RenderWithShader(Shader shader, string replacementTag);
 ```
 
@@ -45,7 +45,7 @@ public void RenderWithShader(Shader shader, string replacementTag);
 
 #### Camera.SetReplacementShader
 
-``` C
+``` GLSL
 public void SetReplacementShader(Shader shader, string replacementTag);
 ```
 
@@ -65,7 +65,7 @@ RenderWithShader与SetReplacementShader的区别是RenderWithShader是 **当前�
 
 比如现在有以下几个Shader:
 
-``` C
+``` GLSL
 Shader "Shader1"{
     Properties(···)
     SubShader{
@@ -82,7 +82,7 @@ Shader "Shader1"{
 
 场景中一部分物体使用的是Shader2:
 
-``` C
+``` GLSL
 Shader "Shader2"{
     Properties(···)
     SubShader{
@@ -94,7 +94,7 @@ Shader "Shader2"{
 
 另一部分物体使用的是Shader3:
 
-``` C
+``` GLSL
 Shader "Shader3"{
     Properties(···)
     SubShader{
@@ -107,7 +107,7 @@ Shader "Shader3"{
 #### 用法1
 
 调用以下方法（*参数2为""*）：
-``` C
+``` GLSL
 Camera.SetPlacementShader(Shader1, "");
 ```
 执行代码之后，场景中的所有物体都使用Shader1进行渲染。
@@ -117,7 +117,7 @@ Camera.SetPlacementShader(Shader1, "");
 #### 用法2
 
 如果第二个参数不为空，如：
-``` C
+``` GLSL
 Camera.SetPlacementShader(Shader1, "RenderType");
 ```
 
@@ -131,7 +131,7 @@ Camera.SetPlacementShader(Shader1, "RenderType");
 
 另外，也可以自定义第二个参数，Shader代码如下:
 
-``` C
+``` GLSL
 Shader "Shader1"{
     Properties(···)
     SubShader{
@@ -146,7 +146,7 @@ Shader "Shader1"{
 }
 ```
 
-``` C
+``` GLSL
 Shader "Shader2"{
     Properties(···)
     SubShader{
@@ -156,7 +156,7 @@ Shader "Shader2"{
 }
 ```
 
-``` C
+``` GLSL
 Shader "Shader3"{
     Properties(···)
     SubShader{
@@ -167,7 +167,7 @@ Shader "Shader3"{
 ```
 
 调用以下方法:
-```
+``` GLSL
 Camera.SetReplacementShader(Shader1, "CheckRenderTypeTag");  
 ```
 最后的结果是，Shader1的第一个SubShader将会替换Shader2和Shader3(因为“CheckRenderTypeTag”对应的数值匹配)。
