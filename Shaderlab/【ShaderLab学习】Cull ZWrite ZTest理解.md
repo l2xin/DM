@@ -1,16 +1,14 @@
 
 
-###ShaderLab: Culling & Depth Testing
+## ShaderLab: Culling & Depth Testing
 
-
- https://docs.unity3d.com/Manual/SL-CullAndDepth.html
 
 ![scene](F:/mine/PipelineCullDepth.png)
 
-####Cull 表面剔除
+### Cull 表面剔除
 
 
-```GLSL
+``` GLSL
 Cull Back | Front | Off
 ```
 
@@ -22,8 +20,9 @@ Cull Back | Front | Off
 
 ----
 
-####ZWrite
-```GLSL
+### ZWrite
+
+``` GLSL
 ZWrite On | Off
 ```
 > Controls whether pixels from this object are written to the depth buffer (default is On).
@@ -31,11 +30,16 @@ ZWrite On | Off
 ZWrite可以取的值为：On/Off，**默认值为On**，代表是否要将像素的深度写入深度缓存中(同时还要看ZTest是否通过)。
 
 
-####ZTest
+### ZTest
+
+#### 语义
+
 ```GLSL
 ZTest Less | Greater | LEqual | GEqual | Equal | NotEqual | Always
 ```
 > Controls whether pixels from this object are written to the depth buffer (default is On).
+
+#### 作用探讨
 
 ZTest可以取的值为：`Greater/GEqual/Less/LEqual/Equal/NotEqual/Always/Never/Off`，**默认值为LEqual**,**ZTest Off 等同于 ZTest Always**，代表通过比较深度来更改颜色缓存的值。例如当取默认值的情况下，如果将要绘制的新像素的z值小于等于深度缓存中的值，则将用新像素的颜色值更新深度缓存中对应像素的颜色值。
 
@@ -58,13 +62,13 @@ ZTest可以取的值为：`Greater/GEqual/Less/LEqual/Equal/NotEqual/Always/Neve
     如果不使用深度测试，后绘制的物体会把先绘制的物体覆盖掉。有了深度缓冲后，绘制顺序就不那么重要，可以按照远近（z值）来正常显示。
     <br/>
 
-#####结论：
+#### 结论：
 >1. ZTest通过，ZWrite为On：写入深度缓冲区，写入颜色缓冲区； 
 >2. ZTest通过，ZWrite为Off：不写深度缓冲区，写入颜色缓冲区； 
 >3. ZTest失败，ZWrite为On：不写深度缓冲区，不写颜色缓冲区； 
 >4. ZTest失败，ZWrite为Off：不写深度缓冲区，不写颜色缓冲区；
 
-#####验证：
+#### 验证：
 测试环境：
 White Cube 坐标（1.5，0.5，1）
 Blue Cube 坐标（0，0，0）
@@ -120,7 +124,7 @@ Shader "Custom/ZTestWhite"
 }
 ```
 
-#####验证结果 : 
+#### 验证结果 : 
 注意ZWrite默认值为On，ZTest默认值为LEqual。
 ```GLSL
 "//ZWrite Off" == "ZWrite On"
@@ -137,3 +141,7 @@ Shader "Custom/ZTestWhite"
 其他类推，就不一一列举了。
 
 <br/>
+
+## 参考
+
+* https://docs.unity3d.com/Manual/SL-CullAndDepth.html
