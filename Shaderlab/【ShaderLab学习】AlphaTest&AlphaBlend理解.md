@@ -34,7 +34,7 @@ https://docs.unity3d.com/Manual/SL-AlphaTest.html
 
 
 ## Surface Shader 示例:
-``` C
+``` c
 Shader "Simple Alpha Test" {
     Properties {···}
     SubShader {
@@ -45,7 +45,7 @@ Shader "Simple Alpha Test" {
     }
 }
 ```
-``` C
+``` c
 Shader "Cutoff Alpha" {
     Properties {
         _Cutoff ("Alpha cutoff", Range (0,1)) = 0.5
@@ -70,7 +70,7 @@ Shader "Cutoff Alpha" {
 **函数:** void clip(float4 x);void clip(float3 x);void clip(float2 x);void clip(float1 x);void clip(float x);
 **参数:**裁剪时使用的标量或者矢量条件。
 **描述:**如果给定参数的任何一个分量是负数，就会舍弃当前像素的输出颜色。等同于以下的代码：
-``` C
+``` c
 void clip(float4 x)
 {
     if(any(x < 0))
@@ -80,7 +80,7 @@ void clip(float4 x)
 }
 ```
 
-``` GLSL
+``` c
 Shader "Custom/l2xin/T_AlphaTest"
 {
     Properties 
@@ -228,7 +228,7 @@ OneMinusDstAlpha　| 1 - destination alpha.
 
 ## 最常见的混合类型：
 
-``` GLSL
+``` c
 Blend SrcAlpha OneMinusSrcAlpha // Traditional transparency　最常用的透明度混合
 Blend One OneMinusSrcAlpha // Premultiplied transparency　预乘透明度
 Blend One One // Additive　叠加的
@@ -334,19 +334,12 @@ Shader "Custom/l2xin/T_AlphaBlend"
 
    ![Blend SrcAlpha OneMinusSrcAlpha](/Image/AlphaBlend_008.png)
 
-## 参考
-* [蛮牛https://docs.unity3d.com/Manual/SL-Blend.html](https://docs.unity3d.com/Manual/SL-Blend.html)
-* [风宇冲http://blog.sina.com.cn/s/blog_471132920101d8z5.html](http://blog.sina.com.cn/s/blog_471132920101d8z5.html)
-* [冯乐乐https://blog.csdn.net/candycat1992/article/details/41599167](https://blog.csdn.net/candycat1992/article/details/41599167)
 
-<br><br>
-
-
-# 后记-AlphaTest和AlphaBlend性能
+## 后记-AlphaTest和AlphaBlend性能
 
 Unity的官方文档中，提到了它们的性能问题——[https://docs.unity3d.com/Manual/SL-ShaderPerformance.html](https://docs.unity3d.com/Manual/SL-ShaderPerformance.html)
 
->       Fixed function AlphaTest or it’s programmable equivalent, clip(), has different performance characteristics on different platforms:
+> Fixed function AlphaTest or it’s programmable equivalent, clip(), has different performance characteristics on different platforms:
 >* Generally it’s a small advantage to use it to cull out totally transparent pixels on most platforms.
 > * However, on PowerVR GPUs found in iOS and some Android devices, alpha testing is expensive. Do not try to use it as “performance optimization” there, it will be slower.
 
@@ -358,8 +351,16 @@ Unity的官方文档中，提到了它们的性能问题——[https://docs.unit
 > 好啦，言归正传~原因呢，就是之前提到的两遍检验。由于我经验有限，只能依靠强大的谷歌来找答案。我找到了这里、这里。总结一下，就是PowerVR GPUs使用了一种叫做“Deferred Tile-Based-Rendering”的技术。这种技术里有一个优化阶段，就是为了减少overdraw它会在调用fragment shader前判断哪些Tile是会被真正渲染的。也就说我们之前说的在FS之前做的“Depth Test”。但是，由于Alpha Test在fragment shader里使用了clip函数改变了fragment是否被渲染的结果，因此，GPUs就无法使用上述的优化策略了。也就是说，只要在完成了所有的fragment shader处理后，GPUs才知道哪些fragments会被真正渲染到屏幕上，这样，原先那些可以减少overdraw的优化就都无效了。
 
 
-这一段摘自乐乐女神的博客:[https://blog.csdn.net/candycat1992/article/details/41599167 ](https://blog.csdn.net/candycat1992/article/details/41599167 )。我也没有理解到位，总之解困是尽可能使用**Alpha Blending**就对了。。
+这一段摘自乐乐女神的博客:[https://blog.csdn.net/candycat1992/article/details/41599167 ](https://blog.csdn.net/candycat1992/article/details/41599167 )。我也没有理解到位，总之结论是尽可能使用**Alpha Blending**就对了。。
 
+---
+
+## 参考
+* [蛮牛https://docs.unity3d.com/Manual/SL-Blend.html](https://docs.unity3d.com/Manual/SL-Blend.html)
+* [风宇冲http://blog.sina.com.cn/s/blog_471132920101d8z5.html](http://blog.sina.com.cn/s/blog_471132920101d8z5.html)
+* [冯乐乐https://blog.csdn.net/candycat1992/article/details/41599167](https://blog.csdn.net/candycat1992/article/details/41599167)
+
+<br><br>
 
 
 
