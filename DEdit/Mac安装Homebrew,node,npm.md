@@ -1,7 +1,7 @@
 ## 前言
 最近开始正式使用TypeScript。考虑用[typedoc](http://typedoc.org/)这个TypeScript 文档化工具。结果家里的新Mac居然npm都没有.
 
-### 首先，npm是个啥？
+#### 首先，npm是个啥？
 
 npm在Node v0.6.x版本之后，内建于Node系统。通过npm可以协助开发者安装、卸载、删除、更新Node.件，并且可以通过npm发布自己的插件。那么就好办了，先安装Node后就自带npm了。
 
@@ -26,13 +26,13 @@ Node.js 使用了一个事件驱动、非阻塞式 I/O 的模型，使其轻量�
 *Homebrew*简称brew，是Mac OSX上的软件包管理工具，能在Mac中方便的安装软件或者卸载软件。 
 
 打开终端，执行以下命令安装Homebrew,确保**xcode command line tool**已经安装，本文开头有安装步骤。
-``` sh
+```sh
 ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 ```
 
 执行上面命令后会提示输入系统密码，输入密码继续安装。
 
-``` sh
+```sh
 l2xindeiMac:~ l2xin$ /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 ==> This script will install:
 /usr/local/bin/brew
@@ -92,17 +92,17 @@ Read the analytics documentation (and how to opt-out) here:
 
 
 
-``` shell
+```shell
 brew install node
     执行以下命令查看是否安装成功
     node -v:查看node版本
     npm -v：查看npm版本
 ```
 
-### <font color=FF0000>有人遇到问题 mac上用brew把node装好了，却没有npm，怎么办？</font>
+### <font color=FF0000>有人遇到问题 mac上用brew把node装好了，却没有npm，很不幸，我也遇到了，怎么办？</font>
 建议node不用brew装 卸载node，安装包安装
 
-``` sh
+```sh
 brew uninstall node
 ```
 官方下载
@@ -112,7 +112,7 @@ taobao镜像
 [https://npm.taobao.org/mirrors/node](https://npm.taobao.org/mirrors/node)
 
 
-``` sh
+```sh
 l2xindeiMac:~ l2xin$ npm -v
 6.4.1
 l2xindeiMac:~ l2xin$ node -v
@@ -124,34 +124,37 @@ l2xindeiMac:~ l2xin$
 
 
 ## 升级node
+这是后话，以后需要再试。
 
 [https://blog.csdn.net/u012982629/article/details/80526385](https://blog.csdn.net/u012982629/article/details/80526385)
 
 ## 解决国内NPM(node.js)安装依赖速度慢问题  
-这个我倒是没验证,搜到的:[https://blog.csdn.net/nnsword/article/details/54096268](https://blog.csdn.net/nnsword/article/details/54096268)
+这个我倒是没验证,搜到的:
+[https://blog.csdn.net/nnsword/article/details/54096268](https://blog.csdn.net/nnsword/article/details/54096268)
 
 不知道各位是否遇到这种情况，使用NPM（Node.js包管理工具）安装依赖时速度特别慢，后来在网上找了好久才找到一种最佳解决办法，在安装时可以手动指定从哪个镜像服务器获取资源，我们可以使用阿里巴巴在国内的镜像服务器，命令如下：
 
-``` sh
+```sh
 npm install -gd webpack --registry=http://registry.npm.taobao.org
 ```
 
 只需要使用–registry参数指定镜像服务器地址，为了避免每次安装都需要--registry参数，可以使用如下命令进行永久设置：
-``` sh
+```sh
 npm config set registry http://registry.npm.taobao.org
 ```
 
 ## 后记
 
-全部居然已经很晚了，安装下载太慢了。。有空再接着搞typedoc
+全部居然已经很晚了，安装下载太慢了。。有空试试改镜像地址，再接着搞typedoc
 
 ------------------------------------
 
 ## 参考
 
+* [http://nodejs.cn/](http://nodejs.cn/)
 * [https://blog.csdn.net/moyummy/article/details/54317866](https://blog.csdn.net/moyummy/article/details/54317866)
 * [https://blog.csdn.net/zfangls/article/details/55098299](https://blog.csdn.net/zfangls/article/details/55098299)
 * [https://segmentfault.com/q/1010000006447817/a-1020000006449033](https://segmentfault.com/q/1010000006447817/a-1020000006449033)
 * [https://blog.csdn.net/nnsword/article/details/54096268](https://blog.csdn.net/nnsword/article/details/54096268)
-* [http://nodejs.cn/](http://nodejs.cn/)
+
 
