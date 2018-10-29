@@ -145,7 +145,7 @@ npm config set registry http://registry.npm.taobao.org
 
 ## 后记
 
-全部居然已经很晚了，安装下载太慢了。。有空试试改镜像地址，再接着搞typedoc
+全部搞好居然已经很晚了，安装下载太慢了。。有空试试改镜像地址，再接着搞typedoc
 
 ------------------------------------
 
